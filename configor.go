@@ -109,6 +109,10 @@ func processTags(config interface{}, prefix ...string) error {
 		fieldStruct := configType.Field(i)
 		field := configValue.Field(i)
 
+		if fieldStruct.Tag.Get("ignore") == "true" {
+			continue
+		}
+
 		// read configuration from shell env
 		var envName = fieldStruct.Tag.Get("env")
 		if envName == "" {
